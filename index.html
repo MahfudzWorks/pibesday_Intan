@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday 🎂</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: radial-gradient(circle at top, #1a1a2e, #0f172a, #020617);
+    }
+
+    .fade-enter {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    .fade-enter-active {
+      opacity: 1;
+      transform: scale(1);
+      transition: all 0.4s ease;
+    }
+
+    .cake {
+      position: absolute;
+      bottom: -100px;
+      font-size: 40px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateY(-800px) scale(1.2); opacity: 0; }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center overflow-hidden text-white">
+
+  <canvas id="fireworks"></canvas>
+
+  <!-- LOADING -->
+  <div id="loading" class="fixed inset-0 bg-black flex items-center justify-center z-50">
+    <h1 class="text-white text-3xl animate-pulse">Loading 🎉...</h1>
+  </div>
+
+  <!-- MAIN -->
+  <div id="mainContent" class="hidden text-center bg-white/10 backdrop-blur-md p-10 rounded-3xl shadow-2xl max-w-lg z-10">
+    
+    <h1 class="text-4xl font-bold mb-4 animate-bounce">
+      🎉 PybesDayyy 🎉
+    </h1>
+
+    <h2 class="text-2xl mb-6">Intannnnnnn 😊</h2>
+
+    <img 
+      src="https://source.unsplash.com/300x300/?birthday,cake"
+      class="rounded-full mx-auto mb-6 border-4 border-white shadow-lg"
+    />
+
+    <p class="mb-6">
+      Semoga yang disemogakan tersemoga ✨
+    </p>
+
+    <!-- ✅ DIUBAH KE QUIZ -->
+    <button onclick="openQuiz()" 
+      class="bg-pink-500 text-white font-bold px-6 py-3 rounded-full hover:bg-pink-600 transition duration-300">
+      Buka Pesan 🎁
+    </button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizModal" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
+    <div id="quizBox" class="bg-white text-black p-6 rounded-2xl text-center max-w-sm">
+
+      <h2 class="text-xl font-bold mb-4">Jawab Dulu 😏</h2>
+
+      <input id="q1" type="text" placeholder="Nama lengkap kamu (HURUF BESAR)"
+        class="w-full mb-3 p-2 border rounded-lg text-sm"/>
+
+      <input id="q2" type="text" placeholder="Siapa Manusia Bumi (HURUF BESAR)"
+        class="w-full mb-3 p-2 border rounded-lg text-sm"/>
+
+      <input id="q3" type="text" placeholder="Password mao tidor (HURUF BESAR) 😆"
+        class="w-full mb-4 p-2 border rounded-lg text-sm"/>
+
+      <p id="errorText" class="text-red-500 text-sm mb-2 hidden">
+        Jawaban salah 😅 coba lagi!
+      </p>
+
+      <button onclick="checkAnswer()"
+        class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600">
+        Kirim Jawaban
+      </button>
+
+    </div>
+  </div>
+
+  <!-- POPUP -->
+  <div id="popup" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
+    
+    <div id="popupBox" class="bg-white text-black p-6 rounded-2xl text-center max-w-sm fade-enter">
+      
+      <img src="https://source.unsplash.com/200x200/?birthday"
+        class="rounded-xl mb-4 shadow-md mx-auto" />
+
+      <h2 class="text-xl font-bold mb-2">🎉 Hsttt! 🎉</h2>
+
+      <p class="mb-4 text-sm">
+        Semoga hal-hal baik selalu beriringan denganmu intannnnn. teruslah tumbuh menjadi orang baik, lutcuuu, ceriaaa dan Berbakti pada bapak dan ibumu😂. dan semoga tuhan selalu melindungimu, dan mungkin aku Manusia Bumi ialah salah satu orang yang sangat senang melihatmu baik-baik saja😊
+      </p>
+
+      <button onclick="closePopup()"
+        class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600">
+        Tutup
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    // LOADING
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("mainContent").classList.remove("hidden");
+      }, 2000);
+    };
+
+    // QUIZ OPEN
+    function openQuiz() {
+      document.getElementById("quizModal").classList.remove("hidden");
+    }
+
+    // CHECK JAWABAN
+    function checkAnswer() {
+      const q1 = document.getElementById("q1").value.trim();
+      const q2 = document.getElementById("q2").value.trim();
+      const q3 = document.getElementById("q3").value.trim();
+      const error = document.getElementById("errorText");
+      const box = document.getElementById("quizBox");
+
+      if (
+        q1 === "FADHILA INTAN FIRLANI" &&
+        q2 === "PIKI" &&
+        q3 === "SELAMAT TIDOR INTAN"
+      ) {
+        document.getElementById("quizModal").classList.add("hidden");
+        showPopup();
+      } else {
+        error.classList.remove("hidden");
+
+        // efek shake
+        box.animate([
+          { transform: "translateX(0)" },
+          { transform: "translateX(-10px)" },
+          { transform: "translateX(10px)" },
+          { transform: "translateX(0)" }
+        ], { duration: 300 });
+      }
+    }
+
+    function showPopup() {
+      const popup = document.getElementById("popup");
+      const box = document.getElementById("popupBox");
+
+      popup.classList.remove("hidden");
+
+      setTimeout(() => {
+        box.classList.add("fade-enter-active");
+      }, 10);
+    }
+
+    function closePopup() {
+      document.getElementById("popup").classList.add("hidden");
+      document.getElementById("popupBox").classList.remove("fade-enter-active");
+    }
+
+    // 🎂 CAKE
+    setInterval(() => {
+      const cake = document.createElement("div");
+      cake.className = "cake";
+      cake.innerText = "🎂";
+      cake.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(cake);
+      setTimeout(() => cake.remove(), 6000);
+    }, 800);
+
+    // 🎆 FIREWORKS
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    function createFirework() {
+      let x = Math.random() * canvas.width;
+      let y = Math.random() * canvas.height / 2;
+
+      for (let i = 0; i < 50; i++) {
+        particles.push({
+          x,
+          y,
+          angle: Math.random() * 2 * Math.PI,
+          speed: Math.random() * 4,
+          life: 100
+        });
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = "rgba(0,0,0,0.2)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p, i) => {
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.life--;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = `hsl(${Math.random()*360},100%,60%)`;
+        ctx.fill();
+
+        if (p.life <= 0) particles.splice(i, 1);
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(createFirework, 1200);
+    animate();
+  </script>
+
+</body>
+</html>
