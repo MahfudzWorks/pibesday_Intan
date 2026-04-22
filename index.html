@@ -44,12 +44,22 @@
   </style>
 </head>
 
+<audio id="bgMusic" loop>
+  <source src="music/monokrom.mp3" type="audio/mpeg">
+</audio>
+
 <body class="min-h-screen flex items-center justify-center overflow-hidden text-white">
+
+  <div id="startScreen" class="fixed inset-0 bg-black flex items-center justify-center z-50">
+    <button onclick="startApp()" 
+      class="bg-pink-500 text-white text-xl font-bold px-8 py-4 rounded-full hover:bg-pink-600 transition">
+      Mulai 🎵
+    </button>
+  </div>
 
   <canvas id="fireworks"></canvas>
 
-  <!-- LOADING -->
-  <div id="loading" class="fixed inset-0 bg-black flex items-center justify-center z-50">
+  <div id="loading" class="hidden fixed inset-0 bg-black flex items-center justify-center z-50">
     <h1 class="text-white text-3xl animate-pulse">Loading 🎉...</h1>
   </div>
 
@@ -63,7 +73,7 @@
     <h2 class="text-2xl mb-6">Intannnnnnn 😊</h2>
 
     <img 
-      src="/img/intan.jpeg" 
+      src="img/intan.jpeg" 
       class="w-64 h-64 object-cover rounded-full mx-auto"
     />
 
@@ -114,7 +124,7 @@
         w-full max-w-sm max-h-[80vh] overflow-y-auto fade-enter">
       
       <img 
-        src="/img/intan.jpeg" 
+        src="img/intan.jpeg" 
         class="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full mb-4 shadow-md mx-auto"
       />
 
@@ -133,20 +143,46 @@
   </div>
 
   <script>
-    // LOADING
-    window.onload = () => {
+    // window.onload = () => {
+    //   setTimeout(() => {
+    //     document.getElementById("loading").style.display = "none";
+    //     document.getElementById("mainContent").classList.remove("hidden");
+
+    //     // 🔥 mulai musik
+    //     const music = document.getElementById("bgMusic");
+    //     music.volume = 0.3;
+    //     music.play().catch(() => {
+    //       console.log("Autoplay diblokir browser");
+    //     });
+
+    //   }, 2000);
+    // };
+
+    function startApp() {
+      const music = document.getElementById("bgMusic");
+
+      // 🔥 mulai musik
+      music.volume = 0.3;
+      music.play();
+
+      // sembunyikan start
+      document.getElementById("startScreen").style.display = "none";
+
+      // tampilkan loading
+      const loading = document.getElementById("loading");
+      loading.classList.remove("hidden");
+
+      // setelah loading → masuk ke konten
       setTimeout(() => {
-        document.getElementById("loading").style.display = "none";
+        loading.style.display = "none";
         document.getElementById("mainContent").classList.remove("hidden");
       }, 2000);
-    };
+    }
 
-    // QUIZ OPEN
     function openQuiz() {
       document.getElementById("quizModal").classList.remove("hidden");
     }
 
-    // CHECK JAWABAN
     function checkAnswer() {
       const q1 = document.getElementById("q1").value.trim();
       const q2 = document.getElementById("q2").value.trim();
@@ -164,7 +200,6 @@
       } else {
         error.classList.remove("hidden");
 
-        // efek shake
         box.animate([
           { transform: "translateX(0)" },
           { transform: "translateX(-10px)" },
@@ -190,7 +225,6 @@
       document.getElementById("popupBox").classList.remove("fade-enter-active");
     }
 
-    // 🎂 CAKE
     setInterval(() => {
       const cake = document.createElement("div");
       cake.className = "cake";
@@ -200,7 +234,6 @@
       setTimeout(() => cake.remove(), 6000);
     }, 800);
 
-    // 🎆 FIREWORKS
     const canvas = document.getElementById("fireworks");
     const ctx = canvas.getContext("2d");
 
