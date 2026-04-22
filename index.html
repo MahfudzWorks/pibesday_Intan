@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Happy Birthday 🎂</title>
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -53,7 +54,7 @@
   <div id="startScreen" class="fixed inset-0 bg-black flex items-center justify-center z-50">
     <button onclick="startApp()" 
       class="bg-pink-500 text-white text-xl font-bold px-8 py-4 rounded-full hover:bg-pink-600 transition">
-      Mulai 🎵
+      Bismillah dulu intan 🎵
     </button>
   </div>
 
@@ -63,7 +64,6 @@
     <h1 class="text-white text-3xl animate-pulse">Loading 🎉...</h1>
   </div>
 
-  <!-- MAIN -->
   <div id="mainContent" class="hidden text-center bg-white/10 backdrop-blur-md p-10 rounded-3xl shadow-2xl max-w-lg z-10">
     
     <h1 class="text-4xl font-bold mb-4 animate-bounce">
@@ -82,14 +82,12 @@
       Semoga yang disemogakan tersemoga ✨
     </p>
 
-    <!-- ✅ DIUBAH KE QUIZ -->
     <button onclick="openQuiz()" 
       class="bg-pink-500 text-white font-bold px-6 py-3 rounded-full hover:bg-pink-600 transition duration-300">
       Buka Pesan 🎁
     </button>
   </div>
 
-  <!-- QUIZ -->
   <div id="quizModal" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
     <div id="quizBox" class="bg-white text-black p-6 rounded-2xl text-center max-w-sm">
 
@@ -116,7 +114,6 @@
     </div>
   </div>
 
-  <!-- POPUP -->
   <div id="popup" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
     
     <div id="popupBox" 
@@ -143,36 +140,17 @@
   </div>
 
   <script>
-    // window.onload = () => {
-    //   setTimeout(() => {
-    //     document.getElementById("loading").style.display = "none";
-    //     document.getElementById("mainContent").classList.remove("hidden");
-
-    //     // 🔥 mulai musik
-    //     const music = document.getElementById("bgMusic");
-    //     music.volume = 0.3;
-    //     music.play().catch(() => {
-    //       console.log("Autoplay diblokir browser");
-    //     });
-
-    //   }, 2000);
-    // };
-
     function startApp() {
       const music = document.getElementById("bgMusic");
 
-      // 🔥 mulai musik
       music.volume = 0.3;
       music.play();
 
-      // sembunyikan start
       document.getElementById("startScreen").style.display = "none";
 
-      // tampilkan loading
       const loading = document.getElementById("loading");
       loading.classList.remove("hidden");
 
-      // setelah loading → masuk ke konten
       setTimeout(() => {
         loading.style.display = "none";
         document.getElementById("mainContent").classList.remove("hidden");
